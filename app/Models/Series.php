@@ -52,4 +52,9 @@ class Series extends Model
     {
         return $this->hasMany(Cart::class);
     }
+
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class);
+    }
 }

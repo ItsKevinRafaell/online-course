@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MaterialController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,9 @@ Route::controller(App\Http\Controllers\SeriesController::class)->prefix('series'
     Route::get('/', 'index')->name('series.index');
     Route::get('{series:slug}', 'show')->name('series.show');
     Route::get('{series:slug}/{videos:episode}', 'video')->name('series.video')->middleware('auth');
+  Route::get('series/{slug}/materi/create', [MaterialController::class, 'create'])->name('materi.create');
+Route::post('series/{slug}/materi/store', [MaterialController::class, 'store'])->name('materi.store');
+
 });
 // route carts
 Route::controller(App\Http\Controllers\CartController::class)->prefix('carts')->middleware('auth')->group(function(){

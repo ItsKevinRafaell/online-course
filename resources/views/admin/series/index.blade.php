@@ -55,9 +55,12 @@
                                     </td>
                                     <td>
                                         <x-button.button-dropdown title="Actions" class="btn btn-primary" icon="list">
-                                            <x-button.button-link class="dropdown-item" title="Add Video"
+                                            {{-- <x-button.button-link class="dropdown-item" title="Add Video"
                                                 url="{{ route('admin.videos.create', $data->slug) }}"
-                                                icon="play-circle" />
+                                                icon="play-circle" /> --}}
+                                            <x-button.button-link class="dropdown-item" title="Add Materi"
+                                                url="{{ route('materi.create', $data->slug) }}"
+                                                icon="book-open" />
                                             <x-button.button-link class="dropdown-item" title="Edit "
                                                 url="{{ route('admin.series.edit', $data->slug) }}" icon="edit" />
                                             <x-button.button-delete id="{{ $data->id }}"

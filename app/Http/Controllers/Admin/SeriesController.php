@@ -45,6 +45,17 @@ class SeriesController extends Controller
         return view('admin.series.create', compact('tags'));
     }
 
+    public function uploadCover(Request $request, $path, $name)
+    {
+        if ($request->hasFile($name)) {
+            $request->validate([
+                $name => 'required|image|max:2048'
+            ]);
+            return $request->file($name)->store($path, 'public');
+        }
+
+        return null;
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -58,7 +69,7 @@ class SeriesController extends Controller
 
         // get request data from input
         $data = $request->all();
-        $data['cover'] = $cover->hashName();
+        $data['cover'] = $cover;
 
         // create new series
         $series = Auth::user()->series()->create($data);
@@ -134,7 +145,7 @@ class SeriesController extends Controller
 
             // update series cover
             $series->update([
-                'cover' => $cover->hashName()
+                'cover' => $cover
             ]);
         }
 
