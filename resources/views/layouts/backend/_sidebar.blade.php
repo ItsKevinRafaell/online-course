@@ -1,10 +1,11 @@
-<aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+<aside class="navbar navbar-vertical navbar-expand-lg navbar-light bg-info">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon text-light"></span>
         </button>
         <a href="/" class="navbar-brand navbar-brand-autodark">
-            <h2 class="font-weight-bold text-azure">We<span class="text-red">Learn</span></h2>
+            <h2 class="font-weight-extrabold text-white">Smartify</h2>
+            {{-- <span class="text-red">Learn</span> --}}
         </a>
         <div class="navbar-nav flex-row d-lg-none">
             <div class="nav-item dropdown">
@@ -56,7 +57,7 @@
                             href="{{ route('admin.dashboard') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="icon icon-tabler icon-tabler-layout-dashboard" width="24" height="24"
+                                    class="icon icon-tabler icon-tabler-layout-dashboard text-light" width="24" height="24"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -66,16 +67,16 @@
                                     <path d="M14 4h6v4h-6z"></path>
                                 </svg>
                             </span>
-                            <span class="nav-link-title">
+                            <span class="font-weight-semi text-light">
                                 Dashboard
                             </span>
                         </a>
                     </li>
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3">Master Data</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3 text-light">Master Data</div>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.tags*') ? 'active' : '' }}"
                             href="{{ route('admin.tags.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1 text-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tags"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -87,7 +88,7 @@
                                     <path d="M6 9h-.01"></path>
                                 </svg>
                             </span>
-                            <span class="nav-link-title">
+                            <span class="nav-link-title text-light">
                                 Tags
                             </span>
                         </a>
@@ -95,7 +96,7 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.series*') ? 'active' : '' }}"
                             href="{{ route('admin.series.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1 text-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-playlist"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -107,16 +108,16 @@
                                     <path d="M9 13h-6"></path>
                                 </svg>
                             </span>
-                            <span class="nav-link-title">
+                            <span class="nav-link-title text-light">
                                 Series
                             </span>
                         </a>
                     </li>
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3">User Management</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3 text-light">User Management</div>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.roles*') ? 'active' : '' }}"
                             href="{{ route('admin.roles.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1 text-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-accessible"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -126,7 +127,7 @@
                                     <circle cx="12" cy="7.5" r=".5" fill="currentColor"></circle>
                                 </svg>
                             </span>
-                            <span class="nav-link-title">
+                            <span class="nav-link-title text-light">
                                 Roles
                             </span>
                         </a>
@@ -134,7 +135,7 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.permissions*') ? 'active' : '' }}"
                             href="{{ route('admin.permissions.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1 text-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shield-lock"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -146,7 +147,7 @@
                                     <line x1="12" y1="12" x2="12" y2="14.5"></line>
                                 </svg>
                             </span>
-                            <span class="nav-link-title">
+                            <span class="nav-link-title text-light">
                                 Permissions
                             </span>
                         </a>
@@ -154,7 +155,7 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.users*') ? 'active' : '' }}"
                             href="{{ route('admin.users.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1 text-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -165,16 +166,16 @@
                                     <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path>
                                 </svg>
                             </span>
-                            <span class="nav-link-title">
+                            <span class="nav-link-title text-light">
                                 Users
                             </span>
                         </a>
                     </li>
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3">Transaction</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3 text-light">Transaction</div>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.transactions*') ? 'active' : '' }}"
                             href="{{ route('admin.transactions.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1 text-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cash"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -185,7 +186,7 @@
                                     <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2"></path>
                                 </svg>
                             </span>
-                            <span class="nav-link-title">
+                            <span class="nav-link-title text-light">
                                 Transactions
                             </span>
                         </a>
@@ -194,7 +195,7 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('member.dashboard') ? 'active' : '' }}"
                             href="{{ route('member.dashboard') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1 text-light">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-layout-dashboard" width="24" height="24"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -206,16 +207,16 @@
                                     <path d="M14 4h6v4h-6z"></path>
                                 </svg>
                             </span>
-                            <span class="nav-link-title">
+                            <span class="nav-link-title text-light">
                                 Dashboard
                             </span>
                         </a>
                     </li>
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3">Learning</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3 text-light">Learning</div>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('member.series*') ? 'active' : '' }}"
                             href="{{ route('member.series.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1 text-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-playlist"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -227,16 +228,16 @@
                                     <path d="M9 13h-6"></path>
                                 </svg>
                             </span>
-                            <span class="nav-link-title">
+                            <span class="nav-link-title text-light">
                                 My Series
                             </span>
                         </a>
                     </li>
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3">Transaction</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3 text-light">Transaction</div>
                     <li class="nav-item">
                         <a class="nav-link" {{ Route::is('member.transactions*') ? 'active' : '' }}
                             href="{{ route('member.transactions.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1 text-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cash"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -247,16 +248,16 @@
                                     <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2"></path>
                                 </svg>
                             </span>
-                            <span class="nav-link-title">
+                            <span class="nav-link-title text-light">
                                 Transactions
                             </span>
                         </a>
                     </li>
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3">Settings</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3 text-light">Settings</div>
                     <li class="nav-item">
                         <a class="nav-link" {{ Route::is('member.profile*') ? 'active' : '' }}
                             href="{{ route('member.profile.index') }}">
-                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block mr-1 text-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -266,7 +267,7 @@
                                     <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"></path>
                                 </svg>
                             </span>
-                            <span class="nav-link-title">
+                            <span class="nav-link-title text-light">
                                 Profile
                             </span>
                         </a>

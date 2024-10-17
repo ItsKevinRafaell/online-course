@@ -28,7 +28,7 @@
                 @csrf
                 <div class="card-body">
                     <h1 class="text-center mb-3 font-weight-bold text-azure">
-                        We<span class="text-red">Learn</span>
+                        Smartify
                     </h1>
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>
