@@ -1,27 +1,109 @@
 @extends('layouts.backend.master')
 
-@section('title')
-    {{ $series->name }}
-@endsection
+@section('title', $series->name)
 
 @section('content')
-    <div class="container-xl">
-        <div class="row">
-            <div class="col-12">
-                <x-card.card title="List Videos - {{ $series->name }}">
-                    <div class="list-group list-group-flush">
-                        @foreach ($videos as $video)
-                            <a href="{{ route('member.series.video', [$series->slug, $video->episode]) }}"
-                                class="list-group-item list-group-item-action" aria-current="true">
-                                Eps - {{ $video->episode }} {{ $video->name }}
-                                <span class="badge bg-{{ $video->intro == 1 ? 'azure' : 'red' }} ml-1">
-                                    {{ $video->intro == 1 ? 'free' : 'pro' }}
-                                </span>
-                            </a>
-                        @endforeach
+<div class="container-xl">
+    <div class="row">
+        <!-- Tab Navigation for Chapters and Points -->
+        <div class="col-3 bg-light border-end vh-100 overflow-auto">
+            <div class="nav flex-column p-3" id="sidebar-nav">
+                @foreach ($chapters as $chapter)
+                    <div class="mb-3">
+                        <!-- Chapter as a Dropdown Toggle -->
+                        <a class="nav-link px-3 py-2 fw-bold rounded d-flex justify-content-between align-items-center text-dark" 
+                           id="v-pills-chapter-{{ $chapter->id }}-tab" 
+                           data-bs-toggle="collapse" 
+                           href="#collapse-chapter-{{ $chapter->id }}" 
+                           role="button" 
+                           aria-expanded="{{ $loop->first ? 'true' : 'false' }}" 
+                           aria-controls="collapse-chapter-{{ $chapter->id }}">
+                            Chapter {{ $chapter->order }}: {{ $chapter->title }}
+                        </a>
+
+                        <!-- Points Dropdown -->
+                        <div class="collapse {{ $loop->first ? 'show' : '' }}" id="collapse-chapter-{{ $chapter->id }}">
+                            <div class="ms-3 mt-2">
+                                @foreach ($chapter->points as $point)
+                                    <a class="nav-link px-3 py-2 rounded mb-1 text-dark" 
+                                       id="v-pills-point-{{ $point->id }}-tab" 
+                                       data-bs-toggle="pill" 
+                                       href="#v-pills-point-{{ $point->id }}" 
+                                       role="tab" 
+                                       aria-controls="v-pills-point-{{ $point->id }}" 
+                                       aria-selected="{{ $loop->first && $loop->parent->first ? 'true' : 'false' }}">
+                                        Point {{ $point->order }}: {{ $point->title }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
-                </x-card.card>
+                @endforeach
+            </div>
+        </div>
+        
+        <!-- Tab Content for Material -->
+        <div class="col-9">
+            <div class="tab-content p-4" id="v-pills-tabContent">
+                @foreach ($chapters as $chapter)
+                    <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" 
+                         id="v-pills-chapter-{{ $chapter->id }}" 
+                         role="tabpanel" 
+                         aria-labelledby="v-pills-chapter-{{ $chapter->id }}-tab">
+                        <h4>{{ $chapter->title }}</h4>
+                        <p>{{ $chapter->description }}</p>
+                    </div>
+
+                    @foreach ($chapter->points as $point)
+                        <div class="tab-pane fade {{ $loop->first && $loop->parent->first ? 'show active' : '' }}" 
+                             id="v-pills-point-{{ $point->id }}" 
+                             role="tabpanel" 
+                             aria-labelledby="v-pills-point-{{ $point->id }}-tab">
+                            <h5>{{ $point->title }}</h5>
+                            <p>{{ $point->content }}</p>
+                        </div>
+                    @endforeach
+                @endforeach
             </div>
         </div>
     </div>
+</div>
+
+<!-- JavaScript to Handle Active States -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const pointLinks = document.querySelectorAll('#sidebar-nav .ms-3 .nav-link');
+
+        // Function to clear all active states from points
+        function clearActiveStates() {
+            pointLinks.forEach(item => {
+                item.classList.remove('bg-primary', 'text-white');
+                item.classList.add('text-dark');
+            });
+        }
+
+        // Listen for clicks on point links
+        pointLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                // Clear existing active states
+                clearActiveStates();
+
+                // Apply active state to the clicked point
+                this.classList.add('bg-primary', 'text-white');
+                this.classList.remove('text-dark');
+
+                // Expand the parent chapter if it's collapsed
+                const parentChapter = this.closest('.collapse');
+                const bsCollapse = new bootstrap.Collapse(parentChapter, {
+                    toggle: false
+                });
+
+                // Ensure the chapter is expanded
+                if (!parentChapter.classList.contains('show')) {
+                    bsCollapse.show();
+                }
+            });
+        });
+    });
+</script>
 @endsection

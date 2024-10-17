@@ -20,8 +20,8 @@ return new class extends Migration
             $table->double('price');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('series_id')->references('id')->on('series');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('series_id')->references('id')->on('series')->onDelete('cascade');
         });
     }
 

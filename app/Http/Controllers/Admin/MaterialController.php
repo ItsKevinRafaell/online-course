@@ -16,72 +16,83 @@ class MaterialController extends Controller
         return view('admin.materials.create', compact('series'));
     }
 
- public function store(Request $request, $slug)
+public function store(Request $request, $slug)
 {
     $series = Series::where('slug', $slug)->firstOrFail();
 
-    // dd($request->all());
-
+    // Validasi
     if ($request->chapter_id === "new") {
-         $request->validate([
-        'new_chapter_title' => 'required_without:chapter_id|string|max:255|nullable',
-        'new_chapter_order' => 'nullable|integer',
-        'points' => 'required|array',
-        'points.*.title' => 'required|string|max:255',
-        'points.*.content' => 'required',
-    ]);
+        $request->validate([
+            'new_chapter_title' => 'required_without:chapter_id|string|max:255',
+            'new_chapter_order' => 'nullable|integer',
+            'points.*.title' => 'nullable|string|max:255',
+            'points.*.content' => 'nullable',
+        ]);
     } else {
         $request->validate([
-        'chapter_id' => 'exists:chapters,id', 
-        'new_chapter_title' => 'required_without:chapter_id|string|max:255|nullable',
-        'new_chapter_order' => 'nullable|integer',
-        'points' => 'required|array',
-        'points.*.title' => 'required|string|max:255',
-        'points.*.content' => 'required',
-    ]);
+            'chapter_id' => 'exists:chapters,id',
+            'edit_chapter_title' => 'nullable|string|max:255',
+            'edit_chapter_order' => 'nullable|integer',
+            'points.*.title' => 'nullable|string|max:255',
+            'points.*.content' => 'nullable',
+        ]);
     }
 
+    // Proses Chapter
     if ($request->chapter_id !== "new") {
+        // Update Chapter yang Ada
         $chapter = Chapter::findOrFail($request->chapter_id);
+        $chapter->update([
+            'title' => $request->edit_chapter_title ?? $chapter->title,
+            'order' => $request->edit_chapter_order ?? $chapter->order,
+        ]);
     } else {
+        // Buat Chapter Baru
         $chapter = $series->chapters()->create([
             'title' => $request->new_chapter_title,
             'order' => $request->new_chapter_order ?? 1,
         ]);
     }
 
-    // Loop untuk menambah atau update points
+    // Loop untuk Menambah atau Memperbarui Points
     foreach ($request->points as $pointData) {
-        if (isset($pointData['id']) && !empty($pointData['id'])) {
-            $point = Point::findOrFail($pointData['id']);
-            $point->update([
-                'title' => $pointData['title'],
-                'content' => $pointData['content'],
-                'order' => $pointData['order'] ?? $point->order,
-            ]);
-        } else {
-            $chapter->points()->create([
-                'title' => $pointData['title'],
-                'content' => $pointData['content'],
-                'order' => $pointData['order'] ?? 1,
-            ]);
+        if (!empty($pointData['title']) && !empty($pointData['content'])) {
+            if (isset($pointData['id']) && !empty($pointData['id'])) {
+                // Update Point yang Ada
+                $point = Point::findOrFail($pointData['id']);
+                $point->update([
+                    'title' => $pointData['title'],
+                    'content' => $pointData['content'],
+                    'order' => $pointData['order'] ?? $point->order,
+                ]);
+            } else {
+                // Tambahkan Point Baru
+                $chapter->points()->create([
+                    'title' => $pointData['title'],
+                    'content' => $pointData['content'],
+                    'order' => $pointData['order'] ?? 1,
+                ]);
+            }
         }
     }
 
-    // Cek apakah ada poin atau chapter yang dihapus
+    // Hapus Points jika ada
     if ($request->has('deleted_points')) {
         Point::whereIn('id', $request->deleted_points)->delete();
     }
 
+    // Hapus Chapter jika ada
     if ($request->has('delete_chapter')) {
         $chapterToDelete = Chapter::findOrFail($request->delete_chapter);
-        $chapterToDelete->points()->delete(); // Hapus semua poin terkait
+        $chapterToDelete->points()->delete(); // Hapus semua point terkait
         $chapterToDelete->delete();
     }
 
+    // Redirect kembali dengan pesan sukses
     return redirect(route('materi.create', $series->slug))
         ->with('toast_success', 'Materi berhasil disimpan');
 }
+
 
     public function edit($slug, $chapterId)
     {

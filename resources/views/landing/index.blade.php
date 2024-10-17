@@ -28,7 +28,7 @@
                                 <p class="text-muted">{{ $data->description }}</p>
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        {{ $data->videos->count() }} Episode
+                                        {{ $data->chapters->count() }} Chapters
                                     </div>
                                     <div>
                                         Rp. {{ number_format($data->price) }}

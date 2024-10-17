@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chapter;
 use Carbon\Carbon;
 use App\Models\Video;
 use App\Models\Series;
@@ -16,42 +17,43 @@ class SeriesController extends Controller
     public function index()
     {
         // get all series
-        $series = Series::with('videos')->latest()->get();
+        $series = Series::with('chapters')->latest()->get();
 
         // return to landing page
         return view('landing.series.index', compact('series'));
     }
 
     public function show($slug)
-    {
-        // get series by slug
-        $series = Series::where('slug', $slug)->first();
+{
+    // Dapatkan series berdasarkan slug
+    $series = Series::where('slug', $slug)->firstOrFail();
 
-        // get videos by series
-        $videos = Video::where('series_id', $series->id)->get();
+    // Dapatkan chapters beserta points terkait
+    $chapters = Chapter::where('series_id', $series->id)
+                ->with('points:id,chapter_id,title,order')
+                ->select('id', 'title', 'order')
+                ->get();
 
-        // call method members from trait HasSeries
-        $members = $this->members($series)->count();
+    // Hitung jumlah members
+    $members = $this->members($series)->count();
 
-        // get transaction by user id
-        $transaction = Transaction::with('details')->where('user_id', Auth::id())->where('status', 1)
-        ->whereHas('details', function($query) use($series){
+    // Cek transaksi untuk user saat ini
+    $transaction = Transaction::with('details')
+        ->where('user_id', Auth::id())
+        ->where('status', 1)
+        ->whereHas('details', function ($query) use ($series) {
             $query->where('series_id', $series->id);
-        })->get();
+        })
+        ->get();
 
-        // define variable $purchased
-        $purchased = null;
+    // Tentukan apakah sudah dibeli
+    $purchased = $transaction->count() > 0 
+        ? $this->userSeries()->get() 
+        : 0;
 
-        // if transaction is not empty
-        if($transaction->count() > 0){
-            // get all userSeries, call from method userSeries, trait hasSeries
-            $purchased = $this->userSeries()->get();
-        }else{
-            $purchased = 0;
-        }
+    return view('landing.series.show', compact('series', 'chapters', 'members', 'purchased', 'transaction'));
+}
 
-        return view('landing.series.show', compact('series','videos', 'members', 'purchased', 'transaction'));
-    }
 
     public function video($slug, $episode)
     {

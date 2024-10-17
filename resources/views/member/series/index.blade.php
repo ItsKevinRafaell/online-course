@@ -14,7 +14,7 @@
                                 <p class="text-muted">{{ $data->series->description }}</p>
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        {{ $data->series->videos->count() }} Episode
+                                        {{ $chapters->count() }} Chapters
                                     </div>
                                 </div>
                             </div>
