@@ -31,7 +31,7 @@
                                             class="avatar rounded me-2" style="background-image: url({{ $data->cover }})">
                                         </a>
                                         <x-modal.modal id="{{ $data->id }}" title="Cover : {{ $data->name }}">
-                                            <img src="{{ $data->cover }}" alt="{{ $data->name }}"
+                                            <img src="{{ asset('storage' . $data->cover) }}" alt="{{ $data->name }}"
                                                 class="img-fluid" />
                                         </x-modal.modal>
                                     </td>

@@ -7,6 +7,7 @@ use App\Models\Chapter;
 use App\Models\Point;
 use App\Models\Series;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MaterialController extends Controller
 {
@@ -16,82 +17,38 @@ class MaterialController extends Controller
         return view('admin.materials.create', compact('series'));
     }
 
-public function store(Request $request, $slug)
-{
-    $series = Series::where('slug', $slug)->firstOrFail();
-
-    // Validasi
-    if ($request->chapter_id === "new") {
+ public function store(Request $request)
+    {
+        // Validasi input
         $request->validate([
-            'new_chapter_title' => 'required_without:chapter_id|string|max:255',
-            'new_chapter_order' => 'nullable|integer',
-            'points.*.title' => 'nullable|string|max:255',
-            'points.*.content' => 'nullable',
+            'name' => 'required|string|max:255',
+            'tags' => 'required|array',
+            'price' => 'required|numeric',
+            'cover' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'description' => 'nullable|string',
+            'level' => 'required|string|in:Beginner,Intermediate,Advanced',
+            'status' => 'nullable|boolean',
         ]);
-    } else {
-        $request->validate([
-            'chapter_id' => 'exists:chapters,id',
-            'edit_chapter_title' => 'nullable|string|max:255',
-            'edit_chapter_order' => 'nullable|integer',
-            'points.*.title' => 'nullable|string|max:255',
-            'points.*.content' => 'nullable',
-        ]);
-    }
 
-    // Proses Chapter
-    if ($request->chapter_id !== "new") {
-        // Update Chapter yang Ada
-        $chapter = Chapter::findOrFail($request->chapter_id);
-        $chapter->update([
-            'title' => $request->edit_chapter_title ?? $chapter->title,
-            'order' => $request->edit_chapter_order ?? $chapter->order,
-        ]);
-    } else {
-        // Buat Chapter Baru
-        $chapter = $series->chapters()->create([
-            'title' => $request->new_chapter_title,
-            'order' => $request->new_chapter_order ?? 1,
-        ]);
-    }
+        $series = new Series();
+        $series->name = $request->name;
+        $series->price = $request->price;
+        $series->description = $request->description;
+        $series->level = $request->level;
+        $series->status = $request->has('status') ? $request->status : 0;
 
-    // Loop untuk Menambah atau Memperbarui Points
-    foreach ($request->points as $pointData) {
-        if (!empty($pointData['title']) && !empty($pointData['content'])) {
-            if (isset($pointData['id']) && !empty($pointData['id'])) {
-                // Update Point yang Ada
-                $point = Point::findOrFail($pointData['id']);
-                $point->update([
-                    'title' => $pointData['title'],
-                    'content' => $pointData['content'],
-                    'order' => $pointData['order'] ?? $point->order,
-                ]);
-            } else {
-                // Tambahkan Point Baru
-                $chapter->points()->create([
-                    'title' => $pointData['title'],
-                    'content' => $pointData['content'],
-                    'order' => $pointData['order'] ?? 1,
-                ]);
-            }
+        if ($request->hasFile('cover')) {
+            $coverPath = $request->file('cover')->store('covers', 'public');
+            $series->cover = $coverPath;
         }
-    }
 
-    // Hapus Points jika ada
-    if ($request->has('deleted_points')) {
-        Point::whereIn('id', $request->deleted_points)->delete();
-    }
+        $series->save();
 
-    // Hapus Chapter jika ada
-    if ($request->has('delete_chapter')) {
-        $chapterToDelete = Chapter::findOrFail($request->delete_chapter);
-        $chapterToDelete->points()->delete(); // Hapus semua point terkait
-        $chapterToDelete->delete();
-    }
+        // Sync tags
+        $series->tags()->sync($request->tags);
 
-    // Redirect kembali dengan pesan sukses
-    return redirect(route('materi.create', $series->slug))
-        ->with('toast_success', 'Materi berhasil disimpan');
-}
+        return redirect()->route('admin.series.index')->with('toast_success', 'Series berhasil dibuat.');
+    }
 
 
     public function edit($slug, $chapterId)
@@ -102,42 +59,45 @@ public function store(Request $request, $slug)
         return view('admin.materials.edit', compact('series', 'chapter'));
     }
 
-    public function update(Request $request, $slug, $chapterId)
+     public function update(Request $request, $slug)
     {
+        // Ambil series berdasarkan slug
         $series = Series::where('slug', $slug)->firstOrFail();
-        $chapter = Chapter::findOrFail($chapterId);
 
+        // Validasi input
         $request->validate([
-            'chapter_title' => 'required|string|max:255',
-            'points' => 'required|array',
-            'points.*.title' => 'required|string|max:255',
-            'points.*.content' => 'required',
+            'name' => 'required|string|max:255',
+            'tags' => 'required|array',
+            'price' => 'required|numeric',
+            'cover' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'description' => 'nullable|string',
+            'level' => 'required|string|in:Beginner,Intermediate,Advanced',
+            'status' => 'nullable|boolean',
         ]);
 
-        $chapter->update([
-            'title' => $request->chapter_title,
-            'order' => $request->chapter_order ?? 1,
-        ]);
+        // Update data series
+        $series->name = $request->name;
+        $series->price = $request->price;
+        $series->description = $request->description;
+        $series->level = $request->level;
+        $series->status = $request->has('status') ? $request->status : 0;
 
-        foreach ($request->points as $pointId => $pointData) {
-            $point = Point::find($pointId);
-
-            if ($point) {
-                $point->update([
-                    'title' => $pointData['title'],
-                    'content' => $pointData['content'],
-                    'order' => $pointData['order'] ?? 1,
-                ]);
-            } else {
-                $chapter->points()->create([
-                    'title' => $pointData['title'],
-                    'content' => $pointData['content'],
-                    'order' => $pointData['order'] ?? 1,
-                ]);
+        // Upload cover image jika ada
+        if ($request->hasFile('cover')) {
+            // Hapus cover lama jika ada
+            if ($series->cover) {
+                Storage::disk('public')->delete($series->cover);
             }
+            $coverPath = $request->file('cover')->store('covers', 'public');
+            $series->cover = $coverPath;
         }
 
-        return redirect(route('admin.series.show', $series->slug))->with('toast_success', 'Materi berhasil diperbarui');
+        $series->save();
+
+        // Sync tags
+        $series->tags()->sync($request->tags);
+
+        return redirect()->route('admin.series.index')->with('toast_success', 'Series berhasil diperbarui.');
     }
 
     public function destroy($chapterId)

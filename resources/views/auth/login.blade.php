@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Login - WeLearn</title>
+    <title>Login - Smartify</title>
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <meta name="msapplication-TileColor" content="#206bc4" />
     <meta name="theme-color" content="#206bc4" />
@@ -27,9 +27,7 @@
             <form class="card card-md" action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="card-body">
-                    <h1 class="text-center mb-3 font-weight-bold text-azure">
-                        We<span class="text-red">Learn</span>
-                    </h1>
+                    <h2 class="font-weight-bold text-dark text-center">Smartify</h2>
                     <div class="mb-3">
                         <label class="form-label">Email address</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror"

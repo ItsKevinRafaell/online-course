@@ -11,8 +11,8 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col-auto">
-                    <h2 class="page-title font-weight-bold text-uppercase">
-                        All New Series
+                    <h2 class="page-title font-weight-bold text-uppercase text-blue">
+                        Materi Terbaru
                     </h2>
                 </div>
             </div>
@@ -22,13 +22,13 @@
                 <div class="col-12 col-lg-4">
                     <a class="text-dark" href="{{ route('series.show', $data->slug) }}">
                         <div class="card card-stacked">
-                            <div class="ribbon bg-primary">New</div>
+                            <div class="ribbon bg-primary">Baru</div>
                             <div class="card-body">
                                 <h3 class="card-title">{{ $data->name }}</h3>
                                 <p class="text-muted">{{ $data->description }}</p>
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        {{ $data->chapters->count() }} Chapters
+                                        {{ $data->chapters->count() }} Bab
                                     </div>
                                     <div>
                                         Rp. {{ number_format($data->price) }}
@@ -54,7 +54,7 @@
                                         </svg>
                                         {{ $data->level }}
                                     </div>
-                                    <div class="{{ $data->status == 1 ? 'text-teal' : 'text-danger' }}">
+                                    <div class="{{ $data->status == 1 ? 'text-blue' : 'text-yellow' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-circle-check" width="24" height="24"
                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -63,7 +63,7 @@
                                             <circle cx="12" cy="12" r="9"></circle>
                                             <path d="M9 12l2 2l4 -4"></path>
                                         </svg>
-                                        {{ $data->status == 1 ? 'Completed' : 'Developed' }}
+                                        {{ $data->status == 1 ? 'Selesai' : 'Pengembangan' }}
                                     </div>
                                 </div>
                             </div>
@@ -73,8 +73,8 @@
             @endforeach
             <div class="col-12">
                 <div class="d-flex justify-content-center">
-                    <x-button.button-link title="See More Series" url="{{ route('series.index') }}" icon="bars"
-                        class="btn btn-dark" />
+                    <x-button.button-link title="Lihat Selengkapnya" url="{{ route('series.index') }}" icon="bars"
+                        class="btn bg-yellow text-white" />
                 </div>
             </div>
         </div>

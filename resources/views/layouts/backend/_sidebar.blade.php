@@ -1,10 +1,10 @@
-<aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+<aside class="navbar navbar-vertical navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu">
             <span class="navbar-toggler-icon"></span>
         </button>
         <a href="/" class="navbar-brand navbar-brand-autodark">
-            <h2 class="font-weight-bold text-azure">We<span class="text-red">Learn</span></h2>
+            <h2 class="font-weight-bold text-white ">Smartify</h2>
         </a>
         <div class="navbar-nav flex-row d-lg-none">
             <div class="nav-item dropdown">
@@ -71,7 +71,7 @@
                             </span>
                         </a>
                     </li>
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3">Master Data</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3 text-white">Master Data</div>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.tags*') ? 'active' : '' }}"
                             href="{{ route('admin.tags.index') }}">
@@ -112,7 +112,7 @@
                             </span>
                         </a>
                     </li>
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3">User Management</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3 text-white">User Management</div>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.roles*') ? 'active' : '' }}"
                             href="{{ route('admin.roles.index') }}">
@@ -170,7 +170,7 @@
                             </span>
                         </a>
                     </li>
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3">Transaction</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3 text-white">Transaction</div>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.transactions*') ? 'active' : '' }}"
                             href="{{ route('admin.transactions.index') }}">
@@ -211,7 +211,7 @@
                             </span>
                         </a>
                     </li>
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3">Learning</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3 text-white">Learning</div>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('member.series*') ? 'active' : '' }}"
                             href="{{ route('member.series.index') }}">
@@ -232,7 +232,7 @@
                             </span>
                         </a>
                     </li>
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3">Transaction</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3 text-white">Transaction</div>
                     <li class="nav-item">
                         <a class="nav-link" {{ Route::is('member.transactions*') ? 'active' : '' }}
                             href="{{ route('member.transactions.index') }}">
@@ -252,7 +252,7 @@
                             </span>
                         </a>
                     </li>
-                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3">Settings</div>
+                    <div class="hr-text hr-text-left ml-2 mb-2 mt-3 text-white">Settings</div>
                     <li class="nav-item">
                         <a class="nav-link" {{ Route::is('member.profile*') ? 'active' : '' }}
                             href="{{ route('member.profile.index') }}">

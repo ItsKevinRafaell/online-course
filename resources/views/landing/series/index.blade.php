@@ -7,8 +7,8 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col-auto">
-                    <h2 class="page-title font-weight-bold text-uppercase">
-                        All Series
+                    <h2 class="page-title font-weight-bold text-uppercase text-blue">
+                        Semua Materi
                     </h2>
                 </div>
             </div>
@@ -19,12 +19,12 @@
                     <a class="text-dark" href="{{ route('series.show', $data->slug) }}">
                         <div class="card card-stacked">
                             @if ($data->created_at < now()->addMonth(1))
-                                <div class="ribbon bg-primary">
-                                    New
+                                <div class="ribbon bg-blue">
+                                    Terbaru
                                 </div>
                             @else
-                                <div class="ribbon bg-teal">
-                                    Oldest
+                                <div class="ribbon bg-yellow">
+                                    Terlaris
                                 </div>
                             @endif
                             <div class="card-body">
@@ -58,7 +58,7 @@
                                         </svg>
                                         {{ $data->level }}
                                     </div>
-                                    <div class="{{ $data->status == 1 ? 'text-teal' : 'text-danger' }}">
+                                    <div class="{{ $data->status == 1 ? 'text-blue' : 'text-yellow' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-circle-check" width="24" height="24"
                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -67,7 +67,7 @@
                                             <circle cx="12" cy="12" r="9"></circle>
                                             <path d="M9 12l2 2l4 -4"></path>
                                         </svg>
-                                        {{ $data->status == 1 ? 'Completed' : 'Developed' }}
+                                        {{ $data->status == 1 ? 'Selesai' : 'Pengembangan' }}
                                     </div>
                                 </div>
                             </div>

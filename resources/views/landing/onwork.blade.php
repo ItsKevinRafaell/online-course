@@ -37,9 +37,9 @@
                     <img src="{{ asset('static/illustrations/undraw_quitting_time_dm8t.svg') }}" class="h-8 mb-4"
                         alt="">
                 </div>
-                <p class="empty-title h3">Coming Soon</p>
+                <p class="empty-title h3">Secepatnya</p>
                 <p class="empty-subtitle text-muted">
-                    Sorry for the inconvenience but we’re not ready at this moment. We’ll be back!
+                    Mohon Maaf, Fitur Ini Sedang Dalam Tahap Pengembangan!
                 </p>
                 <div class="empty-action">
                     <a href="/" class="btn btn-primary">
@@ -51,7 +51,7 @@
                             <line x1="5" y1="12" x2="11" y2="18" />
                             <line x1="5" y1="12" x2="11" y2="6" />
                         </svg>
-                        Take me home
+                        Kembali
                     </a>
                 </div>
             </div>

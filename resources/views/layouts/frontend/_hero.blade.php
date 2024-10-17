@@ -1,10 +1,10 @@
-<section class="p-5 bg-azure">
+<section class="p-5 bg-yellow">
     <div class="container-xl">
         <div class="text-center text-white">
             <h1 class="font-bold">
-                Wanna learn about code?
+                Tertarik Mempelajari Masa Depan
             </h1>
-            <h2 class="mt-4"> You guys got lost in the right place, learning to code? start from here !</h2>
+            <h2 class="mt-4">Bersiaplah Untuk Mempelajari Teknologi Blockchain dan Cryptocurrency!</h2>
         </div>
     </div>
 </section>

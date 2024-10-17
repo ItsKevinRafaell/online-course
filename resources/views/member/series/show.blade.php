@@ -25,7 +25,7 @@
                         <div class="collapse {{ $loop->first ? 'show' : '' }}" id="collapse-chapter-{{ $chapter->id }}">
                             <div class="ms-3 mt-2">
                                 @foreach ($chapter->points as $point)
-                                    <a class="nav-link px-3 py-2 rounded mb-1 text-dark" 
+                                    <a class="nav-link px-3 py-2 rounded mb-1 text-dark {{ $loop->first && $loop->parent->first ? 'bg-primary text-white' : '' }}" 
                                        id="v-pills-point-{{ $point->id }}-tab" 
                                        data-bs-toggle="pill" 
                                        href="#v-pills-point-{{ $point->id }}" 
@@ -55,7 +55,7 @@
                     </div>
 
                     @foreach ($chapter->points as $point)
-                        <div class="tab-pane fade {{ $loop->first && $loop->parent->first ? 'show active' : '' }}" 
+                        <div class="tab-pane fade" 
                              id="v-pills-point-{{ $point->id }}" 
                              role="tabpanel" 
                              aria-labelledby="v-pills-point-{{ $point->id }}-tab">
@@ -102,8 +102,28 @@
                 if (!parentChapter.classList.contains('show')) {
                     bsCollapse.show();
                 }
+
+                // Hide all point contents and show the selected point
+                const pointContents = document.querySelectorAll('.tab-pane[id^="v-pills-point-"]');
+                pointContents.forEach(content => {
+                    content.classList.remove('show', 'active');
+                });
+
+                const selectedPointContent = document.getElementById(this.getAttribute('href').substring(1));
+                selectedPointContent.classList.add('show', 'active');
             });
         });
+
+        // Set the first point active on page load
+        if (pointLinks.length > 0) {
+            clearActiveStates();
+            pointLinks[0].classList.add('bg-primary', 'text-white');
+            pointLinks[0].classList.remove('text-dark');
+
+            // Also show the content of the first point
+            const firstPointContent = document.getElementById(pointLinks[0].getAttribute('href').substring(1));
+            firstPointContent.classList.add('show', 'active');
+        }
     });
 </script>
 @endsection

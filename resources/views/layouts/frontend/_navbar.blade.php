@@ -7,12 +7,12 @@
             <img src="{{ asset('static/logo.svg') }}" alt="Tabler" class="navbar-brand-image">
         </a> --}}
         <a href="/" class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pr-0 pr-md-3 mt-2">
-            <h2 class="font-weight-bold text-azure">We<span class="text-red">Learn</span></h2>
+            <h2 class="font-weight-bold text-yellow">Smartify</h2>
         </a>
         <div class="navbar-nav flex-row order-md-last">
             @guest
-                <a href="{{ route('login') }}" class="nav-item mr-2">Login</a>
-                <a href="{{ route('register') }}" class="nav-item">Register</a>
+                <a href="{{ route('login') }}" class="nav-item mr-2 text-dark text-bold">Masuk</a>
+                <a href="{{ route('register') }}" class="nav-item text-dark text-bold">Daftar</a>
             @endguest
             @auth
                 <div class="nav-item dropdown d-none d-md-flex mr-3">
@@ -105,7 +105,7 @@
                             </svg>
                         </span>
                         <span class="nav-link-title">
-                            Home
+                            Beranda
                         </span>
                     </a>
                 </li>
@@ -128,7 +128,7 @@
                             </svg>
                         </span>
                         <span class="nav-link-title">
-                            Series
+                            Materi
                         </span>
                     </a>
                 </li>
@@ -148,7 +148,7 @@
                             </svg>
                         </span>
                         <span class="nav-link-title">
-                            Articles
+                            Artikel
                         </span>
                     </a>
                 </li>

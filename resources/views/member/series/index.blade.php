@@ -7,14 +7,14 @@
         <div class="row">
             @foreach ($series as $data)
                 <div class="col-12 col-lg-4">
-                    <a class="text-dark" href="{{ route('member.series.show', $data->series->slug) }}">
+                    <a class="text-dark text-decoration-none" href="{{ route('member.series.show', $data->series->slug) }}">
                         <div class="card card-stacked">
                             <div class="card-body">
                                 <h3 class="card-title">{{ $data->series->name }}</h3>
                                 <p class="text-muted">{{ $data->series->description }}</p>
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        {{ $chapters->count() }} Chapters
+                                        {{ $chapters->count() }} Bab
                                     </div>
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                                         </svg>
                                         {{ $data->series->level }}
                                     </div>
-                                    <div class="{{ $data->status == 1 ? 'text-teal' : 'text-danger' }}">
+                                    <div class="{{ $data->status === 1 ? 'text-teal' : 'text-danger' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-circle-check" width="24" height="24"
                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -46,7 +46,7 @@
                                             <circle cx="12" cy="12" r="9"></circle>
                                             <path d="M9 12l2 2l4 -4"></path>
                                         </svg>
-                                        {{ $data->status == 1 ? 'Completed' : 'Developed' }}
+                                        {{ $data->status === 1 ? 'Selesai' : 'Pengembangan' }}
                                     </div>
                                 </div>
                             </div>

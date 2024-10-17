@@ -20,7 +20,6 @@ return new class extends Migration
             $table->longText('content');              
             $table->integer('order')->default(1);     
             $table->timestamps();
-
         });
     }
 
